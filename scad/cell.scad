@@ -1,12 +1,13 @@
 width = 50;
-height = width / 3;
+height = width / 2;
 wall_thickness = 2;
+face_thickness = 1;
 screw_radius = 2;
 
 module box() {
 	difference() {
 		cylinder(r=width, h=height, $fn=6, center=true);
-		translate([0, 0, wall_thickness])
+		translate([0, 0, face_thickness])
 			cylinder(r=width - wall_thickness, h=height, $fn=6, center=true);
 	}
 	
@@ -43,11 +44,11 @@ module notch() {
 }
 
 module lid() {
-	cylinder(r=width, h=wall_thickness, $fn=6, center=true);
+	cylinder(r=width, h=face_thickness, $fn=6, center=true);
 	// Hooks
 	for (i=[0:5]) {
-		rotate([0, 0, 360 / 6 * (i + 0.5)])
-			translate([width - 5 - (wall_thickness * 2), -(width / 4), -(height / 2)])
+		rotate([0, 0, 360 / 6 * (i + 0)])
+			translate([width - (wall_thickness * 2), -2.5, -(height / 2)])
 				rotate([0, 0, 90])
 					notch();
 					
@@ -55,9 +56,9 @@ module lid() {
 }
 
 difference() {
-//	box();
-//	holes();
-//	holes(width / 4);
+	//box();
+	//holes();
+	//holes(width / 4);
 }
 
 translate([0, 0, 50])
