@@ -1,4 +1,4 @@
-mode = 1; // 1 = box, 2 = lid, 3 = both
+mode = 3; // 1 = box, 2 = lid, 3 = both
 width = 50;
 height = 30;
 wall_thickness = 1;
@@ -42,7 +42,11 @@ module notch() {
 }
 
 module lid() {
-	cylinder(r=width - wall_thickness - 2, h=face_thickness, $fn=6, center=true);
+	for (i=[0:2]) {
+		rotate([0, 0, 360 / 6 * (i + 0)])
+			cube([connector_width, width * 2 - 14, wall_thickness], center=true);	
+	}
+	//cylinder(r=width - wall_thickness - 2, h=face_thickness, $fn=6, center=true);
 	// Hooks
 	//for (i=[0:5]) {
 //		rotate([0, 0, 360 / 6 * (i + 0)])
@@ -61,6 +65,6 @@ if (mode == 1 || mode == 3) {
 }
 
 if (mode == 2 || mode == 3) {
-	translate([0, 0, 0])
+	translate([0, 0, 20])
 		lid();
 }
